@@ -1,0 +1,38 @@
+version: "3.0"
+
+services:
+  storage-service-app:
+    image: storage-service-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: storage-service-app-microservices_course
+    environment:
+      SPRING_CLOUD_CONFIG_URI: ${SPRING_CLOUD_CONFIG_URI}
+    ports:
+      - "8085:8085"
+    depends_on:
+      - postgres
+    networks:
+      - service-configuration_default
+      - service-registry_default
+      - postgres
+
+  postgres:
+    container_name: postgres_storage_service_microservices_course
+    image: postgres:11
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - '5434:5432'
+    networks:
+      - postgres
+
+networks:
+  postgres:
+  service-registry_default:
+    external: true
+  service-configuration_default:
+    external: true
