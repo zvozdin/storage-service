@@ -24,7 +24,7 @@ public class Storage {
 	private Long id;
 
 	@Enumerated(value = EnumType.STRING)
-	@Column(name = "storage_type")
+	@Column(name = "storage_type", unique = true)
 	private StorageType storageType;
 
 	@Column(name = "bucket_name")
