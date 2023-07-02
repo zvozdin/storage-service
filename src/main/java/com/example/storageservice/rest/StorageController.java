@@ -41,6 +41,8 @@ public class StorageController {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<StorageTypeResponse>> getStorageTypes() {
+		log.info("Call to retrieve data about storage types");
+
 		return new HttpEntity<>(storageRepository.findAll().stream()
 				.map(Mapper::mapToStorageTypeResponse)
 				.toList());

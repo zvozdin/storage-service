@@ -17,6 +17,7 @@ services:
       - service-configuration_default
       - service-registry_default
       - postgres
+      - resource-service_elasticsearch
 
   postgres:
     container_name: postgres_storage_service_microservices_course
@@ -35,4 +36,6 @@ networks:
   service-registry_default:
     external: true
   service-configuration_default:
+    external: true
+  resource-service_elasticsearch:
     external: true
