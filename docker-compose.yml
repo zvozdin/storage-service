@@ -39,3 +39,5 @@ networks:
     external: true
   resource-service_elasticsearch:
     external: true
+  resource-service_keycloack:
+    external: true
