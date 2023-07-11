@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ public class StorageController {
 
 	private final StorageRepository storageRepository;
 
+	@PreAuthorize(value = "hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.OK)
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<Long> createStorageType(@RequestBody StorageTypeRequest storageTypeRequest) {
@@ -38,6 +40,7 @@ public class StorageController {
 		return new HttpEntity<>(storageRepository.save(storage).getId());
 	}
 
+	@PreAuthorize(value = "hasAnyAuthority('ADMIN', 'USER')")
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<List<StorageTypeResponse>> getStorageTypes() {
@@ -48,6 +51,7 @@ public class StorageController {
 				.toList());
 	}
 
+	@PreAuthorize(value = "hasAuthority('ADMIN')")
 	@ResponseStatus(HttpStatus.OK)
 	@DeleteMapping
 	public HttpEntity<List<Long>> deleteStorageTypes(@RequestParam("id") List<Long> ids) {
