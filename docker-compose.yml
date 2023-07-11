@@ -1,6 +1,7 @@
 version: "3.0"
 
 services:
+  # security within docker can't be verified due to https://stackoverflow.com/questions/70697745/keycloak-token-verification-fails-when-the-backend-is-running-in-a-docker-contai/70708121#70708121
   storage-service-app:
     image: storage-service-app
     build:
@@ -18,6 +19,7 @@ services:
       - service-registry_default
       - postgres
       - resource-service_elasticsearch
+      - resource-service_keycloack
 
   postgres:
     container_name: postgres_storage_service_microservices_course
